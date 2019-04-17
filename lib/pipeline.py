@@ -4,11 +4,6 @@ Class for building and executing a machine learning pipeline
 
 from collections import deque
 
-# q = deque()
-
-# q.append('eat')
-# q.append('sleep')
-# q.append('code')
 
 class Pipeline:
     '''
