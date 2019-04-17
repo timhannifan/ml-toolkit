@@ -1,8 +1,9 @@
 '''
 Class for building and executing a machine learning pipeline
 '''
-
-import csv
+import sys
+import numpy
+import pandas as pd
 
 
 class Reader:
@@ -10,37 +11,27 @@ class Reader:
     Class for representing a way to read and deread text data.
     '''
     def __init__(self):
-        self._buffer = ''
-        self.read_output = ''
-
-    def read(self, input_data):
-        '''
-        Reads in the input_data into the buffer of the deReader.
-
-        Input:
-        input_data (string): the data into insert into the buffer
-
-        '''
-        self._buffer = self._buffer + input_data
+        self.source = None
+        self.postread = None
 
     def clear(self):
         '''
         Clears the contents of the internal buffer
         '''
-        self._buffer = ''
-        self.read_output = ''
+        self.source = None
+        self.postread = None
 
     def print(self):
         '''
         Clears the contents of the internal buffer
         '''
-        print(self.read_output)
+        print('Current output is of type:', type(self.postread))
 
     def output(self):
         '''
         Returns the current stored output (post-read data)
         '''
-        return self.read_output
+        return self.postread
 
 
 class CSVReader(Reader):
@@ -48,15 +39,25 @@ class CSVReader(Reader):
     Class for reading CSV files.
     '''
     def __init__(self):
-        '''
-        Constructs
-        '''
         super().__init__()
 
-    def read(self, input_data):
+    def read(self, path):
+        '''
+        Reads csv and stores in self.postread. Returns nothing.
+        '''
+        self.source = path
+        
+        try:
+            data = pd.read_csv(path)
+            self.postread = data
+        except:
+            print('Error reading csv')
+            self.postread = None
+
+    @property
+    def output(self):
         '''
         Output:
-            A string of the readed data
+            Pandas dataframe of csv data
         '''
-        self._buffer = self._buffer + input_data
-        self.read_output = 'read data'
+        return self.postread
