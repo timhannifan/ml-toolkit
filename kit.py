@@ -9,22 +9,18 @@ import classifier
 
 tools = {
     'pipeline': pipeline.Pipeline,
-    'csvreader': reader.CSVReader,
+    'csvreader': reader.CSVReader(),
     'parser': parser,
     'explorer': explorer,
     'features': features
 }
 
-def demo_small():
+def small_demo():
     pipel = tools['pipeline']
     csvreader = tools['csvreader']
     
-    # data = csvreader.read(fname='/data/credit-data-small.csv')
-    csvreader.read()
-    # print(data.head())
-    # output = readr.output()
-    # print(output)
+    data = csvreader.load('data/credit-data-small.csv')
 
-    return 'demo_small ran'
-
+    result = csvreader.execute()
+    print(result)
 

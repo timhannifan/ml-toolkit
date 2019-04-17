@@ -26,6 +26,11 @@ class Reader:
         Clears the contents of the internal buffer
         '''
         print('Current output is of type:', type(self.postread))
+    def load(self, param):
+        '''
+        Clears the contents of the internal buffer
+        '''
+        self.load_src = param
 
     def output(self):
         '''
@@ -41,18 +46,25 @@ class CSVReader(Reader):
     def __init__(self):
         super().__init__()
 
+
+    def execute(self):
+        '''
+        Kicks off read method with loaded src url. Called by pipeline.
+        '''
+        if self.load_src is not None:
+            return self.read(self.load_src)
+
     def read(self, path):
         '''
-        Reads csv and stores in self.postread. Returns nothing.
+        Reads csv, stores result in class instance, returns read data.
         '''
-        self.source = path
-        
         try:
             data = pd.read_csv(path)
-            self.postread = data
+            self.read_result = data
+            return data
         except:
             print('Error reading csv')
-            self.postread = None
+            return None
 
     @property
     def output(self):
