@@ -11,6 +11,8 @@ class Pipeline:
     '''
     def __init__(self, params=None):
         self.dq = deque()
+        self.dq.clear()
+
         self.last_result = None
 
         if params is not None:
@@ -19,6 +21,16 @@ class Pipeline:
                     self.add(p)
             elif isinstance(params, str):
                 self.add(params)
+
+    def clear(self):
+        '''
+        Adds new_task to the pipeline.
+
+        Input:
+        new_task (object): the class/object to be added
+        Returns: nothing
+        '''
+        self.dq.clear()
 
     def add(self, new_task):
         '''
@@ -39,6 +51,7 @@ class Pipeline:
         Returns: next task or None
         '''
         try:
+            print(self.dq)
             return self.dq.popleft()
         except IndexError:
             return None
@@ -57,16 +70,29 @@ class Pipeline:
         '''
         next_task = self.get_next_task()
         print('Starting pipeline w task', type(next_task))
-
+        counter = 0
         while next_task is not None:
             print('Starting task:', type(next_task))
-            if self.last_result is not None:
-                # First run requires Reader to already be loaded.
-                # otherwise load the next task with previous results
-                next_task.load(self.last_result)
+            try:
+                if counter == 0:
+                    print('working with first item in pipeline')
+                    self.last_result = next_task.execute()
+                    print('setting lastresult in pipe', type(self.last_result))
+                else:
+                    # First run requires Reader to already be loaded.
+                    # otherwise load the next task with previous results
+                    print('working with NOTfirst item in pipeline')
+                    next_task.load_input(self.last_result)
+                    self.last_result = next_task.execute()
+                    print('lastresult', type(self.last_result))
+                next_task = self.get_next_task()
+                counter += 1
+            except:
+                print('Pipeline failed at', next_task)
+                return None
 
-            self.last_result = next_task.execute()
-            next_task = self.get_next_task()
+
+        return self.last_result
 
     def peek(self):
         return self.dq[0]

@@ -16,27 +16,28 @@ class DataParser:
     Class for representing a way to read and deread text data.
     '''
     def __init__(self):
-        self.load_src = None
+        self.input = None
         self.config = {}
+        self.output = None
 
     def clear(self):
         '''
         Clears the contents of the internal buffer
         '''
-        self.load_src = None
+        self.input = None
 
     def print(self):
         '''
         Clears the contents of the internal buffer
         '''
-        print('Current output is of type:', type(self.load_src))
+        print('Current output is of type:', type(self.input))
 
-    def load(self, param):
+    def load_input(self, param):
         '''
         Clears the contents of the internal buffer
         '''
         print('parser loading with ', type(param))
-        self.load_src = param
+        self.input = param
 
     def configure(self, params):
         '''
@@ -49,8 +50,11 @@ class DataParser:
         for fn, targets in self.config.items():
             func_map[fn](targets)
         
-        self.output = 'dataparser output'
+        self.output = self.input
         return self.output
+
+        # self.output = 'dataparser output'
+        # return self.output
 
     def fillna(self, col_types):
         for col in coltypes:
@@ -64,4 +68,4 @@ class DataParser:
         '''
         Returns the current stored output (post-read data)
         '''
-        return self.load_src
+        return self.output

@@ -23,6 +23,7 @@ def small_demo():
     read_step = tools['csvreader']
     parse_step = tools['dataparser']
 
+    pipe.clear()
     read_step.load('data/credit-data-small.csv')
     pipe.add(read_step)
 
