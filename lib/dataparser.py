@@ -4,17 +4,11 @@ Class for parsing and cleaning data
 import sys
 import numpy
 import pandas as pd
-
-
-def fillna(targets):
-    print('filling some nas')
-
-def categorize(targets):
-    print('categorizing')
+import parseutil as pu
 
 func_map = {
-    'fillna': fillna,
-    'categorize': categorize
+    'fillna': pu.fillna,
+    'categorize': pu.categorize
 }
 
 class DataParser:
@@ -51,9 +45,12 @@ class DataParser:
         self.config = params
 
     def execute(self):
+        print('parser execution called')
         for fn, targets in self.config.items():
             func_map[fn](targets)
-        print('parser execution called')
+        
+        self.output = 'dataparser output'
+        return self.output
 
     def fillna(self, col_types):
         for col in coltypes:

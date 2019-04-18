@@ -35,7 +35,4 @@ def small_demo():
     result = pipe.execute()
     print('pipe completed', type(result))
 
-    # result = csvreader.execute()
-    # print(result)
-
 
