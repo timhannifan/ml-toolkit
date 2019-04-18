@@ -11,7 +11,7 @@ class Pipeline:
     '''
     def __init__(self, params=None):
         self.dq = deque()
-        self.last_result = ''
+        self.last_result = None
 
         if params is not None:
             if isinstance(params, list):
@@ -55,19 +55,17 @@ class Pipeline:
         '''
         Kicks off the pipeline
         '''
-        print('Starting pipeline ---------------------------')
         next_task = self.get_next_task()
-        print('Starting w task', type(next_task))
+        print('Starting pipeline w task', type(next_task))
         last_result = self.last_result
 
         while next_task is not None:
-            print('Starting next task:', type(next_task))
-            if last_result != '':
-                next_task.load(last_result)
-            last_result = 'a'
-            # last_result = next.execute()
-            # print(type(last_result))
-            # print('Completing task', type(next_task))
+            print('Starting task:', type(next_task))
+            if self.last_result is not None:
+                print('have a result')
+                next_task.load(self.last_result)
+            self.last_result = next_task.execute()
+
             next_task = self.get_next_task()
 
     def peek(self):
