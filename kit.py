@@ -22,10 +22,14 @@ def small_demo():
     pipe = tools['pipeline']
     read_step = tools['csvreader']
     parse_step = tools['dataparser']
-    
-    read_step.load('data/credit-data-small.csv')
 
+    read_step.load('data/credit-data-small.csv')
     pipe.add(read_step)
+
+    parse_step.configure({
+        'fillna': [('col1', 'mean'), ('col2', 'median')],
+        'categorize': [('col3', ['low', 'med', 'high'])]
+    })
     pipe.add(parse_step)
 
     result = pipe.execute()

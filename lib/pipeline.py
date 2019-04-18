@@ -57,15 +57,15 @@ class Pipeline:
         '''
         next_task = self.get_next_task()
         print('Starting pipeline w task', type(next_task))
-        last_result = self.last_result
 
         while next_task is not None:
             print('Starting task:', type(next_task))
             if self.last_result is not None:
-                print('have a result')
+                # First run requires Reader to already be loaded.
+                # otherwise load the next task with previous results
                 next_task.load(self.last_result)
-            self.last_result = next_task.execute()
 
+            self.last_result = next_task.execute()
             next_task = self.get_next_task()
 
     def peek(self):
