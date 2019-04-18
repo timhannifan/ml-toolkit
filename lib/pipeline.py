@@ -3,7 +3,7 @@ Class for building and executing a machine learning pipeline
 '''
 
 from collections import deque
-
+import reader
 
 class Pipeline:
     '''
@@ -11,6 +11,7 @@ class Pipeline:
     '''
     def __init__(self, params=None):
         self.dq = deque()
+        self.last_result = ''
 
         if params is not None:
             if isinstance(params, list):
@@ -27,9 +28,10 @@ class Pipeline:
         new_task (object): the class/object to be added
         Returns: nothing
         '''
+        print('adding item to pipeline', type(new_task))
         self.dq.append(new_task)
 
-    def next(self):
+    def get_next_task(self):
         '''
         Pops the first task in the queue
 
@@ -49,16 +51,24 @@ class Pipeline:
             return True
         return False
 
-    def go(self):
+    def execute(self):
         '''
         Kicks off the pipeline
         '''
-        next_task = self.next()
+        print('Starting pipeline ---------------------------')
+        next_task = self.get_next_task()
+        print('Starting w task', type(next_task))
+        last_result = self.last_result
 
         while next_task is not None:
-            #next_task.go()
-            print('running a task from go')
-            next_task = self.next()
+            print('Starting next task:', type(next_task))
+            if last_result != '':
+                next_task.load(last_result)
+            last_result = 'a'
+            # last_result = next.execute()
+            # print(type(last_result))
+            # print('Completing task', type(next_task))
+            next_task = self.get_next_task()
 
     def peek(self):
         return self.dq[0]

@@ -1,6 +1,7 @@
 '''
 Class for building and executing a machine learning pipeline
 '''
+print('importing reader')
 import sys
 import numpy
 import pandas as pd
@@ -12,20 +13,20 @@ class Reader:
     '''
     def __init__(self):
         self.source = None
-        self.postread = None
+        self.read_result = None
 
     def clear(self):
         '''
         Clears the contents of the internal buffer
         '''
         self.source = None
-        self.postread = None
+        self.read_result = None
 
     def print(self):
         '''
         Clears the contents of the internal buffer
         '''
-        print('Current output is of type:', type(self.postread))
+        print('Current output is of type:', type(self.read_result))
     def load(self, param):
         '''
         Clears the contents of the internal buffer
@@ -36,7 +37,7 @@ class Reader:
         '''
         Returns the current stored output (post-read data)
         '''
-        return self.postread
+        return self.read_result
 
 
 class CSVReader(Reader):
@@ -51,8 +52,8 @@ class CSVReader(Reader):
         '''
         Kicks off read method with loaded src url. Called by pipeline.
         '''
-        if self.load_src is not None:
-            return self.read(self.load_src)
+        print('executing csvread')
+        return self.read(self.load_src)
 
     def read(self, path):
         '''
@@ -72,4 +73,4 @@ class CSVReader(Reader):
         Output:
             Pandas dataframe of csv data
         '''
-        return self.postread
+        return self.read_result

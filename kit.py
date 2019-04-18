@@ -2,25 +2,36 @@ import sys
 sys.path.append('./lib')
 import pipeline
 import reader
-import parser
-import explorer
-import features
-import classifier
+import dataparser
+# import explorer
+# import features
+# import classifier
 
 tools = {
-    'pipeline': pipeline.Pipeline,
+    'pipeline': pipeline.Pipeline(),
     'csvreader': reader.CSVReader(),
-    'parser': parser,
-    'explorer': explorer,
-    'features': features
+    'dataparser': dataparser.DataParser(),
+    # 'explorer': explorer,
+    # 'features': features
 }
 
 def small_demo():
-    pipel = tools['pipeline']
-    csvreader = tools['csvreader']
+    '''
+    WHY
+    '''
+    pipe = tools['pipeline']
+    read_step = tools['csvreader']
+    parse_step = tools['dataparser']
     
-    data = csvreader.load('data/credit-data-small.csv')
+    read_step.load('data/credit-data-small.csv')
 
-    result = csvreader.execute()
-    print(result)
+    pipe.add(read_step)
+    pipe.add(parse_step)
+
+    result = pipe.execute()
+    print('pipe completed', type(result))
+
+    # result = csvreader.execute()
+    # print(result)
+
 
