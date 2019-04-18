@@ -28,7 +28,7 @@ def small_demo():
     pipe.add(read_step)
 
     parse_step.configure({
-        'fillna': [('col1', 'mean'), ('col2', 'median')],
+        'fillna': [('MonthlyIncome', 'mean')],
         'categorize': [('col3', ['low', 'med', 'high'])]
     })
     pipe.add(parse_step)

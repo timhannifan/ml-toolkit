@@ -47,10 +47,11 @@ class DataParser:
 
     def execute(self):
         print('parser execution called')
+        df = self.input
         for fn, targets in self.config.items():
-            func_map[fn](targets)
+            df = func_map[fn](targets, df)
         
-        self.output = self.input
+        self.output = df
         return self.output
 
         # self.output = 'dataparser output'
