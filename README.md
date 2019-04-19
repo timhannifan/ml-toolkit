@@ -47,30 +47,37 @@ Class to parse pandas dataframes. Configured with a dict of operations. Currentl
 ```
 import features
 
-fg = features.FeatureGenerator()
-fg.configure({
+featuregen = features.FeatureGenerator()
+featuregen.configure({
   'discretize': [('MonthlyIncome', ['low', 'med', 'high'])],
   'dummify': ['discrete_MonthlyIncome', 'SeriousDlqin2yrs']
 })
 
-pipe.add(fg)
+pipe.add(featuregen)
 ```
 ### Classifier
 Class to create Classifier instance. Configured with a scikit classifier type and a target column to use as dependent variable. trained model is stored in the class instace. Currently supports DecisionTreeClassifier.
 ```
 import classifier
 
-cl = classifier.Classifier()
-cl.configure({
+classifr = classifier.Classifier()
+classifr.configure({
     'type': 'DecisionTreeClassifier',
     'target': 'SeriousDlqin2yrs_0'
 })
 
-pipe.add(cl)
+pipe.add(classifr)
 ```
 
 ### ModelEvaluator
+Class to evaluate trained Classifier model. Configured with a dict of evaluation metrics. currently supports accuracy_score for DecisionTreeClassifier.
+```
+import evaluate
 
+evaluatr = evaluate.ModelEvaluator()
+evaluatr.configure({
+    'metrics': ['accuracy_score']
+})
 
-
-	⋅⋅* 
+pipe.add(evaluatr)
+```
