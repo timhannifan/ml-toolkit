@@ -8,7 +8,8 @@ import utils
 
 func_map = {
     'fillna': utils.fillna,
-    'categorize': utils.categorize
+    'discretize': utils.discretize,
+    'dummify': utils.dummify
 }
 
 class DataParser:
@@ -49,13 +50,10 @@ class DataParser:
         print('parser execution called')
         df = self.input
         for fn, targets in self.config.items():
-            df = func_map[fn](targets, df)
+            df = func_map[fn](df, targets)
         
         self.output = df
         return self.output
-
-        # self.output = 'dataparser output'
-        # return self.output
 
     def fillna(self, col_types):
         for col in coltypes:
@@ -70,16 +68,3 @@ class DataParser:
         Returns the current stored output (post-read data)
         '''
         return self.output
-
-def fillna(fill_type, df):
-    '''
-    Fills all int and float columns in df with fill_type (supports mean only)
-    '''
-    for col in list(df.columns):
-        dtype = df[col].dtype
-
-        if dtype in ['int64', 'float64']:
-            if fill_type == 'mean':
-                df[col].fillna(df[col].mean(), inplace=True)
-
-    return df

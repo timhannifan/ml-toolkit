@@ -29,11 +29,14 @@ def small_demo():
 
     parse_step.configure({
         'fillna': 'mean',
-        'categorize': [('MonthlyIncome', 'C_MonthlyIncome', ['low', 'med', 'high'])]
+        'discretize': [('MonthlyIncome', ['low', 'med', 'high'])],
+        'dummify': ['discrete_MonthlyIncome']
     })
     pipe.add(parse_step)
 
     result = pipe.execute()
+    return result
+
     print('pipe completed', type(result))
 
 
