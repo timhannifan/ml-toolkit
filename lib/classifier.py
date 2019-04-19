@@ -1,5 +1,5 @@
 '''
-Class for generating features/predictors
+Class for generating/training classification models
 '''
 import pandas as pd
 import utils
@@ -8,7 +8,7 @@ from sklearn import tree
 
 class Classifier:
     '''
-    Class for representing feature generatoion
+    Class for representing classifier
     '''
     def __init__(self):
         self.input = None
@@ -18,27 +18,43 @@ class Classifier:
         self.model = None
         self.trained_model = None
 
-    def load_input(self, param):
+    def load_input(self, df_in):
         '''
-        Clears the contents of the internal buffer
+        Handles loading of dataframe
+        Input:
+            df_in: pandas dataframe
+        Returns: nothing
         '''
-        print('classifier loading with ', type(param))
-        self.input = param
+        print('classifier loading with ', type(df_in))
+        self.input = df_in
 
     def configure(self, params):
         '''
-        Clears the contents of the internal buffer
+        Configures classifier type
+        Input:
+            params: {type: sklearn model}, only supports DecisionTree
+        Returns: nothing
         '''
         if params['type'] == 'DecisionTreeClassifier':
             self.model = tree.DecisionTreeClassifier()
-
         self.config = params
 
     def generate_yhats(self, x_data):
+        '''
+        Generates predicted Y value on trained model
+        Input:
+            x_data: pandas dataframe
+        Returns: nothing
+        '''
         self.y_hats = self.trained_model.predict(x_data)
 
     def execute(self):
-        print('classifier execution called')
+        '''
+        Pipeline execution method. Trains model on input data
+        Input: none
+        Returns: self with trained_model attribute
+        '''
+        print('Classifier execution called')
         df = self.input
         target = self.config['target']
         classifier_type = self.config['type']
