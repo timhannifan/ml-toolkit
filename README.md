@@ -2,7 +2,7 @@
 A reusable group of Python classes and methods to create machine learning pipelines.
 
 ## Demo
-From ipython3, run the following commands to build a complete pipeline based a modified version of the data from Kaggle's  ["Give Me Some Credit" competition.](https://www.kaggle.com/c/GiveMeSomeCredit). 
+From ipython3 command line, run the following to build a complete pipeline based a modified version of the data from Kaggle's  ["Give Me Some Credit"](https://www.kaggle.com/c/GiveMeSomeCredit) competition. 
 
 ```
 import kit
