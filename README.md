@@ -1,6 +1,9 @@
 # ml-toolkit
 A reusable group of Python classes and methods to create machine learning pipelines.
 
+## Dependencies
+See `requirements.txt`. Built with Python 3.7, pandas, and scikit-learn.
+
 ## Demo
 From ipython3 command line, run the following to build a complete pipeline based a modified version of the data from Kaggle's  ["Give Me Some Credit"](https://www.kaggle.com/c/GiveMeSomeCredit) competition. 
 
