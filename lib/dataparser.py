@@ -7,9 +7,7 @@ import pandas as pd
 import utils
 
 func_map = {
-    'fillna': utils.fillna,
-    'discretize': utils.discretize,
-    'dummify': utils.dummify
+    'fillna': utils.fillna
 }
 
 class DataParser:
@@ -20,18 +18,6 @@ class DataParser:
         self.input = None
         self.config = {}
         self.output = None
-
-    def clear(self):
-        '''
-        Clears the contents of the internal buffer
-        '''
-        self.input = None
-
-    def print(self):
-        '''
-        Clears the contents of the internal buffer
-        '''
-        print('Current output is of type:', type(self.input))
 
     def load_input(self, param):
         '''
@@ -54,14 +40,6 @@ class DataParser:
         
         self.output = df
         return self.output
-
-    def fillna(self, col_types):
-        for col in coltypes:
-            print('filling col '+str(col))
-
-    def categorize(self, col_buckets):
-        for col in col_buckets:
-            print('should be categorizing', col)
 
     def output(self):
         '''

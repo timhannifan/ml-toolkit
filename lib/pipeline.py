@@ -5,6 +5,7 @@ Class for building and executing a machine learning pipeline
 from collections import deque
 import reader
 
+
 class Pipeline:
     '''
     Class for representing a way to compress and decompress text data.
@@ -51,7 +52,6 @@ class Pipeline:
         Returns: next task or None
         '''
         try:
-            print(self.dq)
             return self.dq.popleft()
         except IndexError:
             return None
@@ -75,30 +75,22 @@ class Pipeline:
             print('Starting task:', type(next_task))
             try:
                 if counter == 0:
-                    print('working with first item in pipeline')
                     self.last_result = next_task.execute()
-                    print('setting lastresult in pipe', type(self.last_result))
                 else:
                     # First run requires Reader to already be loaded.
                     # otherwise load the next task with previous results
-                    print('working with NOTfirst item in pipeline')
                     next_task.load_input(self.last_result)
                     self.last_result = next_task.execute()
-                    print('lastresult', type(self.last_result))
                 next_task = self.get_next_task()
                 counter += 1
             except:
                 print('Pipeline failed at', next_task)
                 return None
 
-
         return self.last_result
 
     def peek(self):
         return self.dq[0]
-
-    def clear(self):
-        self.dq.clear()
 
     def extend(self, tasks):
         self.dq.extend(tasks)
