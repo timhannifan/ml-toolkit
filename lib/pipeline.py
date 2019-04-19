@@ -7,7 +7,7 @@ from collections import deque
 
 class Pipeline:
     '''
-    Class for representing a way to compress and decompress text data.
+    Class for building and executing a machine learning pipeline
     '''
     def __init__(self, params=None):
         self.dq = deque()
@@ -24,10 +24,8 @@ class Pipeline:
 
     def clear(self):
         '''
-        Adds new_task to the pipeline.
-
-        Input:
-        new_task (object): the class/object to be added
+        Clears all contents of pipeline
+        Input: none
         Returns: nothing
         '''
         self.dq.clear()
@@ -37,16 +35,15 @@ class Pipeline:
         Adds new_task to the pipeline.
 
         Input:
-        new_task (object): the class/object to be added
+            new_task (object): the class/object to be added
         Returns: nothing
         '''
-        print('adding item to pipeline', type(new_task))
+        print('Adding item to pipeline', type(new_task))
         self.dq.append(new_task)
 
     def get_next_task(self):
         '''
         Pops the first task in the queue
-
         Input: none
         Returns: next task or None
         '''
@@ -58,6 +55,8 @@ class Pipeline:
     def is_empty(self):
         '''
         Checks whether queue is empty. Returns True/False
+        Input: none
+        Returns: bool
         '''
         if (len(self.dq) == 0):
             return True
@@ -65,34 +64,25 @@ class Pipeline:
 
     def execute(self):
         '''
-        Kicks off the pipeline
+        Pipeline execution method. Executes each component sequentially
+        Input: none
+        Returns: last result of the pipeline or None if pipeline fails
         '''
         next_task = self.get_next_task()
-        print('Starting pipeline w task', type(next_task))
         counter = 0
         while next_task is not None:
             print('Starting task:', type(next_task))
             try:
                 if counter == 0:
+                    # First run requires Reader to already be loaded.
                     self.last_result = next_task.execute()
                 else:
-                    # First run requires Reader to already be loaded.
-                    # otherwise load the next task with previous results
+                    # Otherwise load the next task with previous results
                     next_task.load_input(self.last_result)
                     self.last_result = next_task.execute()
                 next_task = self.get_next_task()
                 counter += 1
             except:
-                print('Pipeline failed at', next_task)
+                print('Pipeline failed during task:', next_task)
                 return None
-
         return self.last_result
-
-    def peek(self):
-        return self.dq[0]
-
-    def extend(self, tasks):
-        self.dq.extend(tasks)
-
-    def prioritize(self, task):
-        self.dq.appendleft(task)
