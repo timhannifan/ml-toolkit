@@ -1,6 +1,6 @@
 
 '''
-Class for generating features/predictors
+Class for evaluating trained Classifier model
 '''
 
 from sklearn.metrics import accuracy_score
@@ -11,30 +11,38 @@ func_map = {
 
 class ModelEvaluator:
     '''
-    Class for representing model evaluation
+    Class for evaluating trained Classifier model
     '''
     def __init__(self):
         self.input = None
         self.config = {}
         self.output = None
 
-        self.model = None
-        self.trained_model = None
-
-    def load_input(self, param):
+    def load_input(self, trained_classifier):
         '''
-        Clears the contents of the internal buffer
+        Handles loading of trained classifier
+        Input:
+            trained_classifier: Classifier instance
+        Returns: nothing
         '''
-        print('ModelEvaluator loading with ', type(param))
-        self.input = param
+        print('ModelEvaluator loading with ', type(trained_classifier))
+        self.input = trained_classifier
 
     def configure(self, params):
         '''
-        Clears the contents of the internal buffer
+        Configures metrics used in evaluation type
+        Input:
+            params: {'metrics': ['accuracy_score']}
+        Returns: nothing
         '''
         self.config = params
 
     def execute(self):
+        '''
+        Pipeline execution method. Kicks off evaluation process
+        Input: none
+        Returns: tuple containing trained model and metric dict
+        '''
         print('ModelEvaluator execution called')
         
         metrics = {}
@@ -42,4 +50,5 @@ class ModelEvaluator:
             metrics[metric] = func_map[metric](self.input.y_train, 
                                           self.input.y_hats)
 
-        return (self.input.trained_model, metrics)
+        self.output = (self.input.trained_model, metrics)
+        return self.output
