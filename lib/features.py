@@ -1,8 +1,6 @@
 '''
 Class for generating features/predictors
 '''
-import sys
-import numpy
 import pandas as pd
 import utils
 
@@ -13,39 +11,44 @@ func_map = {
 
 class FeatureGenerator:
     '''
-    Class for representing feature generatoion
+    Class for generating features/predictors
     '''
     def __init__(self):
         self.input = None
         self.config = {}
         self.output = None
 
-    def load_input(self, param):
+    def load_input(self, df_in):
         '''
-        Clears the contents of the internal buffer
+        Handles loading of dataframe
+        Input:
+            df_in: pandas dataframe
+        Returns: nothing
         '''
-        print('featuregenerator loading with ', type(param))
-        self.input = param
+        print('FeatureGenerator loading with ', type(df_in))
+        self.input = df_in
 
     def configure(self, params):
         '''
-        Clears the contents of the internal buffer
+        Configures feature generator with selected methods and cols
+        Input:
+            params: {'discretize': discretize_cols,
+                    'dummify': dum_cols}
+        Returns: nothing
         '''
         self.config = params
 
     def execute(self):
-        print('featuregenerator execution called')
+        '''
+        Pipeline execution method. Processes dataframe with configuration
+        Input: none
+        Returns: processed dataframe
+        '''
+        print('FeatureGenerator execution called')
 
         df = self.input
         for fn, targets in self.config.items():
             df = func_map[fn](df, targets)
 
         self.output = df
-
-        return self.output
-
-    def output(self):
-        '''
-        Returns the current stored output
-        '''
         return self.output
