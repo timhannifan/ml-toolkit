@@ -4,11 +4,11 @@ Class for parsing and cleaning data
 import sys
 import numpy
 import pandas as pd
-import parseutil as pu
+import utils
 
 func_map = {
-    'fillna': pu.fillna,
-    'categorize': pu.categorize
+    'fillna': utils.fillna,
+    'categorize': utils.categorize
 }
 
 class DataParser:
@@ -70,3 +70,16 @@ class DataParser:
         Returns the current stored output (post-read data)
         '''
         return self.output
+
+def fillna(fill_type, df):
+    '''
+    Fills all int and float columns in df with fill_type (supports mean only)
+    '''
+    for col in list(df.columns):
+        dtype = df[col].dtype
+
+        if dtype in ['int64', 'float64']:
+            if fill_type == 'mean':
+                df[col].fillna(df[col].mean(), inplace=True)
+
+    return df
