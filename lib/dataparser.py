@@ -1,8 +1,6 @@
 '''
-Class for parsing and cleaning data
+Class for parsing, cleaning, and filling data
 '''
-import sys
-import numpy
 import pandas as pd
 import utils
 
@@ -12,37 +10,42 @@ func_map = {
 
 class DataParser:
     '''
-    Class for representing a way to read and deread text data.
+    Class for parsing, cleaning, and filling data
     '''
     def __init__(self):
         self.input = None
         self.config = {}
         self.output = None
 
-    def load_input(self, param):
+    def load_input(self, df_in):
         '''
-        Clears the contents of the internal buffer
+        Handles loading of dataframe
+        Input:
+            df_in: pandas dataframe
+        Returns: nothing
         '''
-        print('parser loading with ', type(param))
-        self.input = param
+        print('Parser loading with ', type(df_in))
+        self.input = df_in
 
     def configure(self, params):
         '''
-        Clears the contents of the internal buffer
+        Configures dataparser
+        Input:
+            params: dict
+        Returns: nothing
         '''
         self.config = params
 
     def execute(self):
-        print('parser execution called')
+        '''
+        Pipeline execution method. Runs parser on dataframe
+        Input: none
+        Returns: parsed/cleaned dataframe
+        '''
+        print('Parser execution called')
         df = self.input
         for fn, targets in self.config.items():
             df = func_map[fn](df, targets)
-        
-        self.output = df
-        return self.output
 
-    def output(self):
-        '''
-        Returns the current stored output (post-read data)
-        '''
+        self.output = df
         return self.output
