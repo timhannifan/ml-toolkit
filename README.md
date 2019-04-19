@@ -49,7 +49,7 @@ pipe.add(datap)
 ### DataExplorer
 	* Todo
 ### FeatureGenerator
-Class to parse pandas dataframes. Configured with a dict of operations. Currently supports fillna with series mean.
+Class to handle creating discrete/categorical variables from continuous variables and creating dummy variable columns.
 ```
 import features
 
