@@ -3,7 +3,6 @@ Class for building and executing a machine learning pipeline
 '''
 
 from collections import deque
-import reader
 
 
 class Pipeline:
