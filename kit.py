@@ -4,7 +4,7 @@ import pipeline
 import reader
 import dataparser
 import features
-# import classifier
+import classifier
 # import explorer
 
 
@@ -13,7 +13,8 @@ tools = {
     'pipeline': pipeline.Pipeline(),
     'csvreader': reader.CSVReader(),
     'dataparser': dataparser.DataParser(),
-    'features': features.FeatureGenerator()
+    'features': features.FeatureGenerator(),
+    'classifier': classifier.Classifier()
 }
 
 def small_demo():
@@ -24,6 +25,7 @@ def small_demo():
     read_step = tools['csvreader']
     parse_step = tools['dataparser']
     features_step = tools['features']
+    classify_step = tools['classifier']
     pipe.clear()
     
     read_step.load('data/credit-data-small.csv')
@@ -39,6 +41,12 @@ def small_demo():
         'dummify': ['discrete_MonthlyIncome']
     })
     pipe.add(features_step)
+
+    classify_step.configure({
+        'type': 'DecisionTreeClassifier',
+        'target': 'SeriousDlqin2yrs'
+    })
+    pipe.add(classify_step)
 
     result = pipe.execute()
     print('pipe completed', type(result))
