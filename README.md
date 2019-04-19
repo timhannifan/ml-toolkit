@@ -11,9 +11,12 @@ res = kit.demo()
 
 ## Components
 ### Pipeline
-Class to process pipeline queue. Configured components are added to the Pipeline, which, when executed, handles the transfer of data and parameters between the execution of components.
+Class to process pipeline queue. Configured components are added to the Pipeline, which, when executed, handles the transfer of data and parameters between the execution of components. The execute method returns a tuple containing the trained model and the evaluation metrics specified in ModelEvaluator.
 ```
+# Non-functioning example. See kit.py for complete build process.
+
 import pipeline
+
 pipe = pipeline.Pipeline()
 pipe.add(Component)
 pipe.execute()
