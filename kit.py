@@ -1,3 +1,7 @@
+'''
+Main file to handle imports and access build_pipeline function
+'''
+
 import sys
 sys.path.append('./lib')
 import pipeline
@@ -6,10 +10,9 @@ import dataparser
 import features
 import classifier
 import evaluate
-# import explorer
 
 
-def build_pipe(path, target_col, dummify_target,
+def build_pipeline(path, target_col, dummify_target,
                discretize_cols, dummify_cols):
     '''
     Builds a complete pipeline using ml-toolkit classes
@@ -29,7 +32,6 @@ def build_pipe(path, target_col, dummify_target,
         'fillna': 'mean'
     })
     pipe.add(parse_step)
-
 
     dum_cols = []
     if dummify_target:
@@ -58,11 +60,13 @@ def build_pipe(path, target_col, dummify_target,
     return result
 
 def demo():
-    return build_pipe(path='data/credit-data-small.csv',
+    '''
+    Runs a demonstration of the pipeline
+    '''
+    return build_pipeline(path='data/credit-data-small.csv',
                       target_col='SeriousDlqin2yrs_0',
                       dummify_target=False,
                       discretize_cols = [('MonthlyIncome', 
                                          ['low', 'med', 'high'])],
                       dummify_cols = ['discrete_MonthlyIncome',
                                       'SeriousDlqin2yrs'])
-
