@@ -1,44 +1,41 @@
 '''
-Class for building and executing a machine learning pipeline
+Class for representing different types of file readers
 '''
-import sys
-import numpy
+
 import pandas as pd
 
 
 class Reader:
     '''
-    Class for representing a way to read and deread text data.
+    Class for representing different types of file readers
     '''
     def __init__(self):
         self.path = None
         self.output = None
 
-    def load(self, param):
+    def load(self, path):
         '''
-        Clears the contents of the internal buffer
+        Handles loading file path
+        Input:
+            path: directory path
+        Returns: nothing
         '''
-        print('loading csvreader', param)
-        self.path = param
-
-    def output(self):
-        '''
-        Returns the current stored output (post-read data)
-        '''
-        return self.output
+        self.path = path
 
 
 class CSVReader(Reader):
     '''
-    Class for reading CSV files.
+    Child Class for reading CSV files.
     '''
     def __init__(self):
         super().__init__()
 
     def execute(self):
         '''
-        Kicks off read method with loaded src url. Called by pipeline.
+        Pipeline execution method. Reads csv file into pandas
+        Input: none
+        Returns: pandas dataframe
         '''
-        print('executing csvread with path', self.path)
+        print('Executing csvread with path', self.path)
         self.output = pd.read_csv(self.path)
         return self.output
