@@ -35,11 +35,13 @@ class FeatureGenerator:
 
     def execute(self):
         print('featuregenerator execution called')
+
         df = self.input
         for fn, targets in self.config.items():
             df = func_map[fn](df, targets)
-        
+
         self.output = df
+
         return self.output
 
     def output(self):

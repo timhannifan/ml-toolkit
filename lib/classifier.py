@@ -40,24 +40,18 @@ class Classifier:
     def execute(self):
         print('classifier execution called')
         df = self.input
-        # print(df[''].value_counts())
         target = self.config['target']
-
-        # print(target)
         classifier_type = self.config['type']
 
+        # Generate y_train column as df
         self.y_train = df.loc[:, [target]]
 
-        print(self.input)
-        # print(df.columns)
+        # Generate x_train columns as a set of all cols minus the target_col
         s = set(df.columns)
-
         s.remove(target)
         self.x_train = df.loc[:, list(s)]
 
         self.trained_model = self.model.fit(self.x_train, self.y_train)
-        ## using same data for train/test
         self.generate_yhats(self.x_train)
 
         return self
-        
