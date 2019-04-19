@@ -1,14 +1,16 @@
 '''
 Various helper functions for parsing pandas data
 '''
+
 import pandas as pd
 
 
 def fillna(df, fill_type='mean'):
     '''
     Fills all int and float columns in df with fill_type (supports mean only)
-
-    Input: pd.df, fill_type (str)
+    Input: 
+        df: pandas dataframe
+        fill_type (str) currentlys supports 'mean'
     Returns: Modified dataframe
     '''
     for col in list(df.columns):
@@ -24,8 +26,9 @@ def fillna(df, fill_type='mean'):
 def discretize(df, targets):
     '''
     Converts a continuous variable into a discrete variable
-
-    Input: pd.df, targets=[(target_column_name,[new_label1,...]),..]
+    Input:
+        df: pandas dataframe 
+        targets=[(target_column_name,[new_label1,...]),..]
     Returns: Modified dataframe
     '''
     for target in targets:
@@ -39,8 +42,9 @@ def discretize(df, targets):
 def dummify(df, targets):
     '''
     Converts a categorical variable into dummy series
-
-    Input: pd.df, targets (list of column names)
+    Input: 
+        df: pandas dataframe
+        targets: (list of column names)
     Returns: Modified dataframe
     '''
     for col in targets:
