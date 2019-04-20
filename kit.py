@@ -6,7 +6,8 @@ import sys
 sys.path.append('./lib')
 import pipeline
 import reader
-import dataparser
+import explorer
+import parser
 import features
 import classifier
 import evaluate
@@ -19,7 +20,7 @@ def build_pipeline(path, target_col, dummify_target,
     '''
     pipe = pipeline.Pipeline()
     read_step = reader.CSVReader()
-    parse_step = dataparser.DataParser()
+    parse_step = parser.DataParser()
     features_step = features.FeatureGenerator()
     classify_step = classifier.Classifier()
     evaluate_step = evaluate.ModelEvaluator()
