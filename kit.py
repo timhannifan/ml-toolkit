@@ -7,7 +7,7 @@ sys.path.append('./lib')
 import pipeline
 import reader
 import explorer
-import parser
+import dparser
 import features
 import classifier
 import evaluate
@@ -20,7 +20,8 @@ def build_pipeline(path, target_col, dummify_target,
     '''
     pipe = pipeline.Pipeline()
     read_step = reader.CSVReader()
-    parse_step = parser.DataParser()
+    explore_step = explorer.DataExplorer()
+    parse_step = dparser.DataParser()
     features_step = features.FeatureGenerator()
     classify_step = classifier.Classifier()
     evaluate_step = evaluate.ModelEvaluator()
@@ -28,6 +29,14 @@ def build_pipeline(path, target_col, dummify_target,
     
     read_step.load(path)
     pipe.add(read_step)
+
+    explore_step.configure({
+        'target': 'SeriousDlqin2yrs',
+        'fill_target_mean': True,
+        'reports': ['correlations', 'distributions', 'null_report'],
+        'output_path': './reports/'
+    })
+    pipe.add(explore_step)
 
     parse_step.configure({
         'fillna': 'mean'
@@ -64,7 +73,7 @@ def demo():
     '''
     Runs a demonstration of the pipeline
     '''
-    return build_pipeline(path='data/credit-data-small.csv',
+    return build_pipeline(path='data/credit-data.csv',
                       target_col='SeriousDlqin2yrs_0',
                       dummify_target=False,
                       discretize_cols = [('MonthlyIncome', 

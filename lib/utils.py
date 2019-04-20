@@ -19,7 +19,6 @@ def fillna(df, fill_type='mean'):
         if dtype in ['int64', 'float64']:
             if fill_type == 'mean':
                 df[col].fillna(df[col].mean(), inplace=True)
-
     return df
 
 
