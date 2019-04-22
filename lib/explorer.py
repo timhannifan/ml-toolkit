@@ -67,7 +67,7 @@ class DataExplorer:
             target_corr.sort_values(inplace=True)
             print(target_corr)
 
-        if 'distributions' in reports:
+        # if 'distributions' in reports:
 
 
 
