@@ -63,12 +63,14 @@ class DataExplorer:
 
         if 'correlations' in reports:
             corr_df = df.corr(method='pearson')
-
             target_corr = corr_df.loc[target]
             target_corr.sort_values(inplace=True)
             print(target_corr)
 
         if 'distributions' in reports:
+
+
+
         ## Todo: check for null vals in target col. This is breaking 
         ## classifier downstream. 
         # vc = series.isna().value_counts()
@@ -77,12 +79,4 @@ class DataExplorer:
             #     print('--------filling')
             #     df = utils.fillna(df)
 
-        if 'correlations' in reports:
-            print('lets write some reports!')
-
-        # # if 'correlations' in reports
-        # for fn, targets in self.config.items():
-        #     df = func_map[fn](df, targets)
-
-        self.output = df
-        return self.output
+        return self.input

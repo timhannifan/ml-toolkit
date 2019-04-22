@@ -34,6 +34,23 @@ csvreader.load('data/credit-data-small.csv')
 
 pipe.add(csvreader)
 ```
+
+### DataExplorer
+Class to generate summary statistics of dasta. Configured with a dict shown below. Returns pandas df. Currently logs output of analysis to the terminal.
+```
+import explorer
+
+explore = explorer.DataExplorer()
+explore.configure({
+        'target': 'target_column_name',
+        'fill_target_mean': True,
+        'reports': ['correlations', 'distributions'],
+        'output_path': './reports/'
+})
+
+pipe.add(explore)
+```
+
 ### DataParser
 Class to parse pandas dataframes. Configured with a dict of operations. Currently supports fillna with series mean.
 ```
