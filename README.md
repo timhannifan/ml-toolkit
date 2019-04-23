@@ -71,8 +71,7 @@ explore = explorer.DataExplorer()
 explore.configure({
         'target': 'target_column_name',
         'fill_target_mean': True,
-        'reports': ['correlations', 'summary_stats',
-        					  'class_distribution', 'skew'],
+        'reports': ['correlations', 'summary_stats', 'class_distribution', 'skew'],
         'output_path': './reports/'
 })
 pipe.add(explore)
