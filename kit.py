@@ -14,7 +14,7 @@ import evaluate
 
 
 def build_pipeline(path, target_col, dummify_target,
-               discretize_cols, dummify_cols):
+               discretize_cols, dummify_cols, reports):
     '''
     Builds a complete pipeline using ml-toolkit classes
     '''
@@ -31,9 +31,9 @@ def build_pipeline(path, target_col, dummify_target,
     pipe.add(read_step)
 
     explore_step.configure({
-        'target': 'SeriousDlqin2yrs',
+        'target': target_col,
         'fill_target_mean': True,
-        'reports': ['correlations', 'distributions', 'null_report'],
+        'reports': reports,
         'output_path': './reports/'
     })
     pipe.add(explore_step)
@@ -74,9 +74,11 @@ def demo():
     Runs a demonstration of the pipeline
     '''
     return build_pipeline(path='data/credit-data.csv',
-                      target_col='SeriousDlqin2yrs_0',
+                      target_col='SeriousDlqin2yrs',
                       dummify_target=False,
                       discretize_cols = [('MonthlyIncome', 
                                          ['low', 'med', 'high'])],
                       dummify_cols = ['discrete_MonthlyIncome',
-                                      'SeriousDlqin2yrs'])
+                                      'SeriousDlqin2yrs'],
+                      reports = ['correlations', 'summary_stats',
+                                 'class_distribution','skew'])

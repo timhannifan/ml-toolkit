@@ -60,14 +60,35 @@ class DataExplorer:
         reports = self.config['reports']
         path =self.config['output_path']
         series = df[target]
+        pd.set_option('display.width', 100)
+        pd.set_option('precision', 3)
 
         if 'correlations' in reports:
+            
             corr_df = df.corr(method='pearson')
+            print('-------------Correlation matrix------------')
+            print(corr_df)
+
             target_corr = corr_df.loc[target]
             target_corr.sort_values(inplace=True)
+            print('-------------Class/variable correlations------------')
             print(target_corr)
 
-        # if 'distributions' in reports:
+        if 'summary_stats' in reports:
+            rpt = df.describe()
+            print('-------------Summary Statistics------------')
+            print(rpt)
+
+        if 'class_distribution' in reports:
+            class_counts = df.groupby(target).size()
+            print('-------------Class distribution------------')
+            print(class_counts)
+
+        if 'skew' in reports:
+            skew = df.skew()
+            print('-------------Skew------------')
+            print(skew)
+
 
 
 

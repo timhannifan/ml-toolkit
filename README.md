@@ -64,7 +64,19 @@ datap.configure({
 pipe.add(datap)
 ```
 ### DataExplorer
-	* Todo
+Class to generate statistics of class target and variables. Configured with a dict shown below. Returns pandas df. Currently logs output of analysis to the terminal. Supports correlation matrix, summary statistics of all variables, distribution of class target, and skew metrics for each variable.
+```
+import explorer
+explore = explorer.DataExplorer()
+explore.configure({
+        'target': 'target_column_name',
+        'fill_target_mean': True,
+        'reports': ['correlations', 'summary_stats',
+        					  'class_distribution', 'skew'],
+        'output_path': './reports/'
+})
+pipe.add(explore)
+```
 ### FeatureGenerator
 Class to handle creating discrete/categorical variables from continuous variables and creating dummy variable columns.
 ```
