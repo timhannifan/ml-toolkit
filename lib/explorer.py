@@ -10,7 +10,7 @@ import numpy as np
 import sklearn.preprocessing, sklearn.decomposition, \
          sklearn.linear_model, sklearn.pipeline, sklearn.metrics
 #from sklearn.feature_extraction.text
-from sklearn_pandas import DataFrameMapper
+# from sklearn_pandas import DataFrameMapper
 # import CountVectorizer
 
 func_map = {
