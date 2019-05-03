@@ -1,7 +1,17 @@
 # Code originally written by Rayid Ghani. https://github.com/rayidghani/magicloops
 # Repurposed and ammended here for a different dataset
 
+'''
+Sample usage:
+Before starting, create directory with data file in a directory named ./data
+
+import analysis
+analysis.main("./data/projects_2012_2013.csv", 'results.csv', 'all', 'test')
+'''
+
 from __future__ import division
+import sys
+sys.path.append('./lib')
 import pandas as pd
 import numpy as np
 import os
@@ -22,11 +32,6 @@ from mlfunctions import *
 
 def main(inp, outp, mod, gsize):
 
-    print('Number of arguments:', len(sys.argv), 'arguments.')
-    print('Argument List:', str(sys.argv))
-
-    # parse input parameters
-
     # csv df file to be used as input
     infile = inp
 
@@ -43,7 +48,6 @@ def main(inp, outp, mod, gsize):
     df = pd.read_csv(infile)
 
     # setting variables
-        # which variable to use for prediction_time
     prediction_length = 60
     prediction_time = 'date_posted'
     timestamp_prediction_time = 'tmstmp_date_posted'
