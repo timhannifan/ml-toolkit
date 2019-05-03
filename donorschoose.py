@@ -143,18 +143,13 @@ def main(inp, outp, mod, gsize):
     # and store several evaluation metrics
     group = 0
     for index,clf in enumerate([clfs[x] for x in models_to_run]):
-        print('-------------------starting a new model=---------------')
         group += 1
         parameter_values = grid[models_to_run[index]]
         for p in ParameterGrid(parameter_values):
-            print('-----current p ', p)
             for current_outcome in outcomes:
                 for predictor in all_predictors:
-                    print('---------predictor', predictor)
                     for validation_date in validation_dates:
-                        print('---------validationdate', validation_date)
                         try:
-                            print(models_to_run[index])
                             clf.set_params(**p)
 
                             train_set = df[df[timestamp_prediction_time] <= \
