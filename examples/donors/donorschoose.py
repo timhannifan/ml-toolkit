@@ -11,7 +11,8 @@ analysis.main("./data/projects_2012_2013.csv", 'results.csv', 'all', 'test')
 
 from __future__ import division
 import sys
-sys.path.append('./lib')
+sys.path.append('../lib')
+sys.path.append('../')
 import pandas as pd
 import numpy as np
 import os
