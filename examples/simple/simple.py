@@ -1,10 +1,14 @@
 import sys
 sys.path.append('../lib')
 sys.path.append('../')
-import pandas as pd
+import gridgenerator
 
-from mlfunctions import *
 
+def test_grid():
+    g = gridgenerator.define_clfs_params('tiny')
+    skmodels, params = g
+    for k,v in params.items():
+        print(k,v)
 
 def main(inpath, outpath, models=None, params_size="test"):
 
